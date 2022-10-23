@@ -9,7 +9,7 @@ RUN mvn -f /app/pom.xml clean package
 # Stage-2: Distribution
 FROM openjdk:14
 
-ENV API_KEY=bf46d105039a427eb61e19deb6f769ca
+ENV API_KEY=<INSERT_API_KEY>
 COPY --from=build /app/target/NewsApiExample-0.0.1-SNAPSHOT.jar /usr/local/lib/NewsApiExample.jar
 EXPOSE 8080
 WORKDIR /usr/local/lib
