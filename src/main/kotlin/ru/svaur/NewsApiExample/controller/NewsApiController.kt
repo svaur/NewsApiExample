@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 import ru.svaur.NewsApiExample.ArticlesDto
-import ru.svaur.NewsApiExample.dto.ArticleDto
-import ru.svaur.NewsApiExample.service.NewsApiService
+import ru.svaur.NewsApiExample.dto.SourcesDto
+import ru.svaur.NewsApiExample.feign.NewsApiFeignClient
+import ru.svaur.NewsApiExample.dto.ParamsSourcesEnum
+import ru.svaur.NewsApiExample.dto.ParamsTopArticlesEnum
 
 /**
  * News api controller
@@ -17,51 +19,36 @@ import ru.svaur.NewsApiExample.service.NewsApiService
  * @constructor Create empty News api controller
  */
 @RestController
-class NewsApiController @Autowired constructor(var newsApiService: NewsApiService) {
+class NewsApiController @Autowired constructor(
+        private val newsApiFeignClient: NewsApiFeignClient
+) {
+    private var apiKey = System.getenv("API_KEY")
 
-
-    /**
-     * Get random article about subject
-     *
-     * @param subject
-     * @return
-     */
-    @GetMapping("/v1/getRandomArticleAboutsubject")
-    fun getRandomArticleAboutSubject(subject: String): ArticleDto {
-        var paramsList = listOf(
-                "q=$subject"
+    @GetMapping("/v1/getTopHeadlinesInCountry")
+    fun getTopHeadlinesInCountry(country: String): ArticlesDto {
+        val paramsMap = mapOf<String, String>(
+                ParamsTopArticlesEnum.APIKEY.param to apiKey,
+                ParamsTopArticlesEnum.COUNTRY.param to country
         )
-        var articlesList = newsApiService.getArticlesRequest("everything", paramsList)
-        return articlesList.articles.random()
+        print(paramsMap)
+        return newsApiFeignClient.getTopHeadlinersByCountry(paramsMap)
     }
 
-    /**
-     * Get top headline articles for country
-     *
-     * @param country
-     * @return
-     */
-    @GetMapping("/v1/getTopHeadlineInCountry")
-    fun getTopHeadlineInCountry(country: String): ArticlesDto {
-        var paramsList = listOf(
-                "country=$country"
+    @GetMapping("/v1/getSources")
+    fun getSources(country: String): SourcesDto {
+        val paramsMap = mapOf<String, String>(
+                ParamsSourcesEnum.APIKEY.param to apiKey
         )
-        return newsApiService.getArticlesRequest("top-headlines", paramsList)
+        print(paramsMap)
+        return newsApiFeignClient.getSources(paramsMap)
     }
 
-    /**
-     * How many articles about particular subject
-     *
-     * @param subject
-     * @return
-     */
-    @GetMapping("/v1/howManyArticles")
-    fun howManyArticles(subject: String): Int {
-        var paramsList = listOf(
-                "q=$subject"
-        )
-        return newsApiService.getArticlesRequest("everything", paramsList).articles.count()
+    @GetMapping("/v1/fileDownload")
+    fun fileDownload(country: String): String {
+
+        return ""
     }
+
     @ExceptionHandler(value = [HttpMessageNotReadableException::class])
     fun handleMessageNotReadable(): ResponseEntity<Any> =
             ResponseEntity.badRequest().build()
