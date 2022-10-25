@@ -1,6 +1,7 @@
 package ru.svaur.NewsApiExample.controller
 
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.ResponseEntity
 import org.springframework.http.converter.HttpMessageNotReadableException
 import org.springframework.web.bind.annotation.ExceptionHandler
@@ -22,6 +23,7 @@ import ru.svaur.NewsApiExample.dto.ParamsTopArticlesEnum
 class NewsApiController @Autowired constructor(
         private val newsApiFeignClient: NewsApiFeignClient
 ) {
+
     private var apiKey = System.getenv("API_KEY")
 
     @GetMapping("/v1/getTopHeadlinesInCountry")
@@ -35,7 +37,7 @@ class NewsApiController @Autowired constructor(
     }
 
     @GetMapping("/v1/getSources")
-    fun getSources(country: String): SourcesDto {
+    fun getSources(): SourcesDto {
         val paramsMap = mapOf<String, String>(
                 ParamsSourcesEnum.APIKEY.param to apiKey
         )
@@ -44,7 +46,7 @@ class NewsApiController @Autowired constructor(
     }
 
     @GetMapping("/v1/fileDownload")
-    fun fileDownload(country: String): String {
+    fun fileDownload(): String {
 
         return ""
     }
