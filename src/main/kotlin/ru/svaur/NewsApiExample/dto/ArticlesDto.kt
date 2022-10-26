@@ -12,5 +12,5 @@ import ru.svaur.NewsApiExample.dto.ArticleDto
 data class ArticlesDto(
         val status: String,
         val totalResults: Int,
-        var articles: List<ArticleDto>
+        var articles: List<ArticleDto>?
 )

@@ -7,7 +7,7 @@ import ru.svaur.NewsApiExample.ArticlesDto
 import ru.svaur.NewsApiExample.configuration.FeignCustomConfiguration
 import ru.svaur.NewsApiExample.dto.SourcesDto
 
-@FeignClient(value = "newsApi", url = "\${base_url}", configuration = [FeignCustomConfiguration::class])
+@FeignClient(value = "newsApi", url = "\${base_url}")//, configuration = [FeignCustomConfiguration::class])
 interface NewsApiFeignClient {
     @GetMapping("/everything")
     fun getEverything(@SpringQueryMap paramsEnum: Map<String, String>): ArticlesDto

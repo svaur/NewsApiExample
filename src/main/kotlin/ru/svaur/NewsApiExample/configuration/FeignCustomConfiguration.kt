@@ -14,6 +14,8 @@ class FeignCustomConfiguration {
     @Bean
     fun objectMapper(): ObjectMapper {
         return ObjectMapper()
+                .setDefaultSetterInfo(JsonSetter.Value.forContentNulls(Nulls.AS_EMPTY))
                 .setDefaultSetterInfo(JsonSetter.Value.forValueNulls(Nulls.AS_EMPTY))
+                .findAndRegisterModules()
     }
 }

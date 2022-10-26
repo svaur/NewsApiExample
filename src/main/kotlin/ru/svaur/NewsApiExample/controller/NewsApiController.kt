@@ -1,7 +1,6 @@
 package ru.svaur.NewsApiExample.controller
 
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.ResponseEntity
 import org.springframework.http.converter.HttpMessageNotReadableException
 import org.springframework.web.bind.annotation.ExceptionHandler
@@ -12,6 +11,9 @@ import ru.svaur.NewsApiExample.dto.SourcesDto
 import ru.svaur.NewsApiExample.feign.NewsApiFeignClient
 import ru.svaur.NewsApiExample.dto.ParamsSourcesEnum
 import ru.svaur.NewsApiExample.dto.ParamsTopArticlesEnum
+import feign.FeignException
+
+
 
 /**
  * News api controller
@@ -32,8 +34,13 @@ class NewsApiController @Autowired constructor(
                 ParamsTopArticlesEnum.APIKEY.param to apiKey,
                 ParamsTopArticlesEnum.COUNTRY.param to country
         )
-        print(paramsMap)
-        return newsApiFeignClient.getTopHeadlinersByCountry(paramsMap)
+        try {
+            return newsApiFeignClient.getTopHeadlinersByCountry(paramsMap)
+        } catch (e: FeignException) {
+            print("ResponseBody: " + e.contentUTF8())
+        }
+
+        return ArticlesDto("",0, null)
     }
 
     @GetMapping("/v1/getSources")
