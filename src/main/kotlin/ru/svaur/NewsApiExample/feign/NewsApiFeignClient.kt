@@ -4,7 +4,6 @@ import org.springframework.cloud.openfeign.FeignClient
 import org.springframework.cloud.openfeign.SpringQueryMap
 import org.springframework.web.bind.annotation.GetMapping
 import ru.svaur.NewsApiExample.ArticlesDto
-import ru.svaur.NewsApiExample.configuration.FeignCustomConfiguration
 import ru.svaur.NewsApiExample.dto.SourcesDto
 
 @FeignClient(value = "newsApi", url = "\${base_url}")//, configuration = [FeignCustomConfiguration::class])

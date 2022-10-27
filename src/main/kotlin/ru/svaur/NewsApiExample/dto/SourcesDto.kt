@@ -1,8 +1,5 @@
 package ru.svaur.NewsApiExample.dto
 
-import com.fasterxml.jackson.annotation.JsonSetter
-import com.fasterxml.jackson.annotation.Nulls
-
 
 /**
  * Sources dto
@@ -12,5 +9,5 @@ import com.fasterxml.jackson.annotation.Nulls
  */
 data class SourcesDto(
         val status: String,
-        val sources: List<SourceDto>
+        val sources: Array<Any>?
 )

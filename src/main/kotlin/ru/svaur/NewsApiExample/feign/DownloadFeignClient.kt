@@ -4,9 +4,9 @@ import feign.Param
 import org.springframework.cloud.openfeign.FeignClient
 import org.springframework.web.bind.annotation.GetMapping
 
-@FeignClient(value = "download")
+@FeignClient(value = "download", url = "\${base_url}")
 interface DownloadFeignClient {
 
     @GetMapping("/download")
-    fun getEverything(@Param url: String): ByteArray
+    fun downloadFile(@Param url: String): ByteArray
 }

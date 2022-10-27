@@ -1,8 +1,5 @@
 package ru.svaur.NewsApiExample.dto
 
-import com.fasterxml.jackson.annotation.JsonSetter
-import com.fasterxml.jackson.annotation.Nulls
-
 
 /**
  * Article dto
@@ -17,19 +14,12 @@ import com.fasterxml.jackson.annotation.Nulls
  * @property content
  */
 data class ArticleDto(
-        val source: ShortSourceDto,
-        @JsonSetter(nulls = Nulls.AS_EMPTY)
-        val author: String,
-        @JsonSetter(nulls = Nulls.AS_EMPTY)
-        val title: String,
-        @JsonSetter(nulls = Nulls.AS_EMPTY)
-        val description: String,
-        @JsonSetter(nulls = Nulls.AS_EMPTY)
-        val url: String,
-        @JsonSetter(nulls = Nulls.AS_EMPTY)
-        val urlToImage: String,
-        @JsonSetter(nulls = Nulls.AS_EMPTY)
-        val publishedAt: String,
-        @JsonSetter(nulls = Nulls.AS_EMPTY)
-        val content: String
+        val source: ShortSourceDto?,
+        val author: String?,
+        val title: String?,
+        val description: String?,
+        val url: String?,
+        val urlToImage: String?,
+        val publishedAt: String?,
+        val content: String?
 )
