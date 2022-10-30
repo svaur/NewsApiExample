@@ -1,9 +1,5 @@
 package ru.svaur.NewsApiExample.controller
 
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.http.ResponseEntity
-import org.springframework.http.converter.HttpMessageNotReadableException
-import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 import ru.svaur.NewsApiExample.ArticlesDto
@@ -15,6 +11,7 @@ import feign.FeignException
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.slf4j.LoggerFactory
+import org.springframework.cache.annotation.Cacheable
 import ru.svaur.NewsApiExample.feign.DownloadFeignClient
 
 
@@ -33,6 +30,8 @@ class NewsApiController(
     private val log = LoggerFactory.getLogger(NewsApiController::class.java)
     private var apiKey = System.getenv("API_KEY")
 
+
+    @Cacheable(value = ["SourcesDto"], key="#country")
     @GetMapping("/v1/getTopHeadlinesInCountry")
     @Operation(method = "getTopHeadlinesInCountry", summary = "get top headlines by country", operationId = "getTopHeadlinesInCountry")
     fun getTopHeadlinesInCountry(country: String): ArticlesDto {
@@ -48,9 +47,10 @@ class NewsApiController(
             log.error("(NewsApiController/getTopHeadlinesInCountry) INTERNAL_SERVER_ERROR RuntimeException", e)
         }
 
-        return ArticlesDto("", 0, null)
+        return ArticlesDto(0,"", 0, null)
     }
 
+    @Cacheable(value = ["SourcesDto"])
     @GetMapping("/v1/getSources")
     @Operation(method = "getSources", summary = "get all sources", operationId = "getSources")
     fun getSources(): SourcesDto {
@@ -63,7 +63,9 @@ class NewsApiController(
         } catch (e: FeignException) {
             log.error("(NewsApiController/getSources) INTERNAL_SERVER_ERROR RuntimeException", e)
         }
-        return SourcesDto("", null)
+
+
+        return SourcesDto(0,"", null)
     }
 
     @GetMapping("/v1/fileDownload")

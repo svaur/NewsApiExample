@@ -1,5 +1,7 @@
 package ru.svaur.NewsApiExample.dto
 
+import com.fasterxml.jackson.annotation.JsonProperty
+
 
 /**
  * source dto for ArticleDTO
@@ -8,6 +10,8 @@ package ru.svaur.NewsApiExample.dto
  * @property name
  */
 data class ShortSourceDto(
+        @JsonProperty("id")
         val id: String?,
+        @JsonProperty("name")
         val name: String
 )

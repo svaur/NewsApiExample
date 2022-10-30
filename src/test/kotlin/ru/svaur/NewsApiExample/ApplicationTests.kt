@@ -22,36 +22,36 @@ class ApplicationTests @Autowired constructor () {
 
 
 
-	private fun getArticles() = mutableListOf(
-			ArticleDto(
-					ShortSourceDto("id","source"),
-					"author1",
-					"title1",
-					"description1",
-					"url1",
-					"urlToImage1",
-					"publishedAt1",
-					"content1"
-			),
-			ArticleDto(
-					ShortSourceDto("id","source"),
-					"author2",
-					"title2",
-					"description2",
-					"url2",
-					"urlToImage2",
-					"publishedAt2",
-					"conten21"
-			),
-			ArticleDto(
-					ShortSourceDto("id","source"),
-					"author3",
-					"title3",
-					"description3",
-					"url3",
-					"urlToImage3",
-					"publishedAt3",
-					"conten3"
-			)
-	)
+//	private fun getArticles() = mutableListOf(
+//			ArticleDto(
+//					ShortSourceDto("id","source"),
+//					"author1",
+//					"title1",
+//					"description1",
+//					"url1",
+//					"urlToImage1",
+//					"publishedAt1",
+//					"content1"
+//			),
+//			ArticleDto(
+//					ShortSourceDto("id","source"),
+//					"author2",
+//					"title2",
+//					"description2",
+//					"url2",
+//					"urlToImage2",
+//					"publishedAt2",
+//					"conten21"
+//			),
+//			ArticleDto(
+//					ShortSourceDto("id","source"),
+//					"author3",
+//					"title3",
+//					"description3",
+//					"url3",
+//					"urlToImage3",
+//					"publishedAt3",
+//					"conten3"
+//			)
+//	)
 }

@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import ru.svaur.NewsApiExample.ArticlesDto
 import ru.svaur.NewsApiExample.dto.SourcesDto
 
-@FeignClient(value = "newsApi", url = "\${base_url}")//, configuration = [FeignCustomConfiguration::class])
+@FeignClient(value = "newsApi", url = "\${base_url}")
 interface NewsApiFeignClient {
     @GetMapping("/everything")
     fun getEverything(@SpringQueryMap paramsEnum: Map<String, String>): ArticlesDto

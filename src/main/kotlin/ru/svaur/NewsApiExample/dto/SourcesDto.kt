@@ -1,5 +1,8 @@
 package ru.svaur.NewsApiExample.dto
 
+import com.fasterxml.jackson.annotation.JsonProperty
+import javax.persistence.GeneratedValue
+import javax.persistence.Id
 
 /**
  * Sources dto
@@ -7,7 +10,13 @@ package ru.svaur.NewsApiExample.dto
  * @property status
  * @property sources
  */
+
 data class SourcesDto(
+        @JsonProperty("id")
+        @Id @GeneratedValue
+        var id: Long = 0,
+        @JsonProperty("status")
         val status: String,
-        val sources: Array<Any>?
+        @JsonProperty("sources")
+        val sources: List<SourceDto>?
 )

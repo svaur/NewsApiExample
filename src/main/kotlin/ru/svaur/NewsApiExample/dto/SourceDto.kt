@@ -1,5 +1,8 @@
 package ru.svaur.NewsApiExample.dto
 
+import com.fasterxml.jackson.annotation.JsonProperty
+import javax.persistence.Id
+
 
 /**
  * Source dto
@@ -13,11 +16,19 @@ package ru.svaur.NewsApiExample.dto
  * @property country
  */
 data class SourceDto(
+        @Id
+        @JsonProperty("id")
         val id: String,
+        @JsonProperty("name")
         val name: String,
+        @JsonProperty("description")
         val description: String,
+        @JsonProperty("url")
         val url: String,
+        @JsonProperty("category")
         val category: String,
+        @JsonProperty("language")
         val language: String,
+        @JsonProperty("country")
         val country: String
 )
