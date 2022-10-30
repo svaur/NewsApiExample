@@ -26,7 +26,7 @@ import ru.svaur.NewsApiExample.feign.DownloadFeignClient
  */
 @RestController
 @Tag(name = "News Api Controller", description = "REST endpoints for NewsApiExample")
-class NewsApiController @Autowired constructor(
+class NewsApiController(
         private val newsApiFeignClient: NewsApiFeignClient,
         private val downloadFeignClient: DownloadFeignClient
 ) {

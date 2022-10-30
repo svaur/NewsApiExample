@@ -8,8 +8,8 @@ import ru.svaur.NewsApiExample.controller.NewsApiController
 import ru.svaur.NewsApiExample.dto.ArticleDto
 import ru.svaur.NewsApiExample.dto.ShortSourceDto
 
-//@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-//@WebMvcTest(controllers = [NewsApiController::class])
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@WebMvcTest(controllers = [NewsApiController::class])
 class ApplicationTests @Autowired constructor () {
 
 	@Test
