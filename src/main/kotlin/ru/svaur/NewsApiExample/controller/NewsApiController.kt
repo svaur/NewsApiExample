@@ -1,18 +1,19 @@
 package ru.svaur.NewsApiExample.controller
 
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RestController
-import ru.svaur.NewsApiExample.ArticlesDto
-import ru.svaur.NewsApiExample.dto.SourcesDto
-import ru.svaur.NewsApiExample.feign.NewsApiFeignClient
-import ru.svaur.NewsApiExample.dto.ParamsSourcesEnum
-import ru.svaur.NewsApiExample.dto.ParamsTopArticlesEnum
 import feign.FeignException
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.slf4j.LoggerFactory
 import org.springframework.cache.annotation.Cacheable
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RestController
+import ru.svaur.NewsApiExample.ArticlesDto
+import ru.svaur.NewsApiExample.dto.ParamsSourcesEnum
+import ru.svaur.NewsApiExample.dto.ParamsTopArticlesEnum
+import ru.svaur.NewsApiExample.dto.SourcesDto
 import ru.svaur.NewsApiExample.feign.DownloadFeignClient
+import ru.svaur.NewsApiExample.feign.NewsApiFeignClient
+import java.net.URI
 
 
 /**
@@ -31,7 +32,7 @@ class NewsApiController(
     private var apiKey = System.getenv("API_KEY")
 
 
-    @Cacheable(value = ["SourcesDto"], key="#country")
+    @Cacheable(value = ["SourcesDto"], key = "#country")
     @GetMapping("/v1/getTopHeadlinesInCountry")
     @Operation(method = "getTopHeadlinesInCountry", summary = "get top headlines by country", operationId = "getTopHeadlinesInCountry")
     fun getTopHeadlinesInCountry(country: String): ArticlesDto {
@@ -39,15 +40,15 @@ class NewsApiController(
                 ParamsTopArticlesEnum.APIKEY.param to apiKey,
                 ParamsTopArticlesEnum.COUNTRY.param to country
         )
-        log.debug("(NewsApiController/getTopHeadlinesInCountry) request params:${paramsMap}}")
-        log.info("(NewsApiController/getTopHeadlinesInCountry) request params:${paramsMap}}")
+        log.debug("request params:${paramsMap}}")
+        log.info("request params:${paramsMap}}")
         try {
             return newsApiFeignClient.getTopHeadlinersByCountry(paramsMap)
         } catch (e: FeignException) {
             log.error("(NewsApiController/getTopHeadlinesInCountry) INTERNAL_SERVER_ERROR RuntimeException", e)
         }
 
-        return ArticlesDto(0,"", 0, null)
+        return ArticlesDto(0, "", 0, null)
     }
 
     @Cacheable(value = ["SourcesDto"])
@@ -57,27 +58,22 @@ class NewsApiController(
         val paramsMap = mapOf<String, String>(
                 ParamsSourcesEnum.APIKEY.param to apiKey
         )
-        log.debug("(NewsApiController/getSources) request params:${paramsMap}}")
+        log.debug("request params:${paramsMap}}")
         try {
             return newsApiFeignClient.getSources(paramsMap)
         } catch (e: FeignException) {
-            log.error("(NewsApiController/getSources) INTERNAL_SERVER_ERROR RuntimeException", e)
+            log.error("INTERNAL_SERVER_ERROR RuntimeException", e)
         }
 
 
-        return SourcesDto(0,"", null)
+        return SourcesDto(0, "", null)
     }
 
     @GetMapping("/v1/fileDownload")
     @Operation(method = "fileDownload", summary = "download file by URL", operationId = "fileDownload")
     fun fileDownload(url: String): ByteArray {
-
-        log.debug("(NewsApiController/fileDownload)")
-        try {
-            return downloadFeignClient.downloadFile(url)
-        } catch (e: FeignException) {
-            log.error("(NewsApiController/fileDownload) INTERNAL_SERVER_ERROR RuntimeException", e)
-        }
-        return "ERROR".toByteArray()
+        log.debug("downloading file ", url)
+        val response: ByteArray = downloadFeignClient.downloadFile(URI.create(url))
+        return response
     }
 }

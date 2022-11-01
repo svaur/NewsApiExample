@@ -7,11 +7,11 @@ import org.springframework.context.annotation.Configuration
 
 
 @OpenAPIDefinition(
-    info = Info(
-        title = "News Api Example",
-        description = "Kotlin, Spring Boot, Redis",
-        contact = Contact(name = "Alexander Sviridov", email = "sviridov.al.ur@gmail.com", url = "https://github.com/svaur")
-    )
+        info = Info(
+                title = "News Api Example",
+                description = "Kotlin, Spring Boot, Redis",
+                contact = Contact(name = "Alexander Sviridov", email = "sviridov.al.ur@gmail.com", url = "https://github.com/svaur")
+        )
 )
 @Configuration
 class SwaggerOpenAPIConfiguration

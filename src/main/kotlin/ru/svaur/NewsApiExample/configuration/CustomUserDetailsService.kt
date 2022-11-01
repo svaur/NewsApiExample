@@ -13,6 +13,7 @@ import ru.svaur.NewsApiExample.repository.UserRepository
 internal class CustomUserDetailsService : UserDetailsService {
     @Autowired
     private lateinit var userRepository: UserRepository
+
     @Throws(UsernameNotFoundException::class)
     override fun loadUserByUsername(user: String): UserDetails {
         val customer: UserDto = userRepository.findByUser(user) ?: throw UsernameNotFoundException(user)

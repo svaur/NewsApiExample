@@ -1,12 +1,11 @@
 package ru.svaur.NewsApiExample.feign
 
-import feign.Param
 import org.springframework.cloud.openfeign.FeignClient
 import org.springframework.web.bind.annotation.GetMapping
+import java.net.URI
 
-@FeignClient(value = "download", url = "\${base_url}")
+@FeignClient(value = "download", url = "http://")
 interface DownloadFeignClient {
-
-    @GetMapping("/download")
-    fun downloadFile(@Param url: String): ByteArray
+    @GetMapping
+    fun downloadFile(baseUrl: URI): ByteArray
 }
