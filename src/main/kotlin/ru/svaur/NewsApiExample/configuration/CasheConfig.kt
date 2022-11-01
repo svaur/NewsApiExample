@@ -10,20 +10,20 @@ import java.time.Duration
 
 
 @Configuration
-class CashConfig {
+class CasheConfig {
     @Bean
     fun redisCacheManagerBuilderCustomizer(): RedisCacheManagerBuilderCustomizer? {
         return RedisCacheManagerBuilderCustomizer { builder: org.springframework.data.redis.cache.RedisCacheManager.RedisCacheManagerBuilder ->
             builder
                     .withCacheConfiguration("restCache",
-                            RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofMinutes(10)))
+                            RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofSeconds(10)))
         }
     }
 
     @Bean
     fun cacheConfiguration(): RedisCacheConfiguration? {
         return RedisCacheConfiguration.defaultCacheConfig()
-                .entryTtl(Duration.ofMinutes(60))
+                .entryTtl(Duration.ofSeconds(60))
                 .disableCachingNullValues()
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(GenericJackson2JsonRedisSerializer()))
     }
