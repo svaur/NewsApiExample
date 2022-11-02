@@ -10,7 +10,7 @@ ENV API_KEY=<INSERT_API_KEY>
 or set enviroment variables for local run
 5) run Dockerfile
 
-An application provides an API through Swagger: http://localhost:8080/swagger-ui/index.html
+An application provides an API through Swagger: http://localhost:8080/swagger-ui/index.html. user:user
 
 
 Used libraries:
