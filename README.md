@@ -1,14 +1,9 @@
 # NewsApiExample
 This application is a test for newsapi.com resources for educational purposes. 
 
-To start, you need to (docker-compose in progress): 
-1) redis on port 6379
-2) postgres on port 55000
-3) run script db_migration/USER_CREATE.sql
-4) You need to generate and insert your API key before running in the Dockerfile.
+To start, you need to run docker-compose, but before you need to generate and insert your API key before running in the Dockerfile.
 ENV API_KEY=<INSERT_API_KEY>
-or set enviroment variables for local run
-5) run Dockerfile
+
 
 An application provides an API through Swagger: http://localhost:8080/swagger-ui/index.html. user:user
 
