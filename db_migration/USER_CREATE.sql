@@ -1,4 +1,6 @@
-create table news_api.users
+CREATE SCHEMA news_api;
+
+create table IF NOT EXISTS news_api.users
 (
     username  varchar(250) not null
         constraint users_pk
@@ -17,3 +19,4 @@ alter table news_api.users
 
 INSERT INTO news_api.users (username, password, firstname, lastname, role, lock) VALUES ('admin', '$2a$12$1R/N6z8Gwh/BqgrPeQZiQeZsXQ.c6vMk59Wsimxmwg70wq9pVOPwy', 'admin', 'admin', 'ADMIN', false);
 INSERT INTO news_api.users (username, password, firstname, lastname, role, lock) VALUES ('user', '$2a$12$CX1BU0PS8aKnnTuQuQ7cC.e/UOU7oTvbZGPfrdF64ndfDYjOa/2L2', 'user', 'user', 'USER', false);
+COMMIT

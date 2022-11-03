@@ -12,7 +12,6 @@
     <artifactId>NewsApiExample</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>demo</name>
-    <description>Test assignment NBK</description>
     <properties>
         <java.version>11</java.version>
         <kotlin.version>1.4.10</kotlin.version>
