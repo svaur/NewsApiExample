@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.multipart.MultipartFile
 import ru.svaur.NewsApiExample.ArticlesDto
 import ru.svaur.NewsApiExample.dto.ParamsSourcesEnum
 import ru.svaur.NewsApiExample.dto.ParamsTopArticlesEnum
@@ -83,11 +84,10 @@ class NewsApiController(
 
     @GetMapping("/v1/fileDownload")
     @Operation(method = "fileDownload", summary = "download file by URL", operationId = "fileDownload")
-    fun fileDownload(@Valid @Pattern(regexp = URL_REGEXP) url: String): ByteArray {
+    fun fileDownload(@Valid @Pattern(regexp = URL_REGEXP) url: String): MultipartFile {
         log.debug("downloading file ", url)
         //todo:antivirus check up
-        val response: ByteArray = downloadFeignClient.downloadFile(URI.create(url))
-        return response
+        return downloadFeignClient.downloadFile(URI.create(url))
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
